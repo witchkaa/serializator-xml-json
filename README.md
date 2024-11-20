@@ -1,4 +1,4 @@
-# chthonic-streams
+# serializator-xml-json
 
 Автор проєкту: Вікторія Сабадан, ІМ-22.
 
