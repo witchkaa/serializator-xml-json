@@ -57,7 +57,7 @@ public class Serializator {
                     return sb.toString();
 
                 case XML:
-                    sb.append("<").append(cls.getSimpleName()).append(">\n");
+                    sb.append("<").append(cls.getSimpleName().toLowerCase()).append(">\n");
                     for (Field field : fields) {
                         field.setAccessible(true);
                         XmlField xmlField = field.getAnnotation(XmlField.class);
@@ -75,7 +75,7 @@ public class Serializator {
                             System.err.println("Cannot access field: " + field.getName());
                         }
                     }
-                    sb.append("</").append(cls.getSimpleName()).append(">");
+                    sb.append("</").append(cls.getSimpleName().toLowerCase()).append(">");
                     return sb.toString();
 
                 default:
