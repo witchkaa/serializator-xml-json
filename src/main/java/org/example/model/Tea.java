@@ -1,6 +1,9 @@
-package org.example;
+package org.example.model;
 
-@Serialized(format = Format.JSON)
+import org.example.Format;
+import org.example.Serialized;
+
+@Serialized(format = Format.XML)
 public class Tea {
     private String size;
     private String type;

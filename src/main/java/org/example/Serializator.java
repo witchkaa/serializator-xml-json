@@ -1,5 +1,7 @@
 package org.example;
 
+import java.lang.reflect.Field;
+
 public class Serializator {
     public String serialize(Object obj) {
         Class<?> cls = obj.getClass();
@@ -8,11 +10,52 @@ public class Serializator {
             System.err.println("Cannot serialize " + cls.getName() + " because it has no Serialized");
             return null;
         } else {
+            StringBuilder sb = new StringBuilder();
             Format format = annotation.format();
-            return switch (format) {
-                case JSON -> "{\"" + cls.getName() + " {}}\n";
-                case XML -> "<" + cls.getName() + ">\n";
-            };
+            Field[] fields = cls.getDeclaredFields();
+
+            switch (format) {
+                case JSON:
+                    sb.append("{\n\t");
+                    for (int i = 0; i < fields.length; i++) {
+                        Field field = fields[i];
+                        field.setAccessible(true);
+                        try {
+                            sb.append("\"").append(field.getName()).append("\":");
+                            Object value = field.get(obj);
+                            if (value instanceof String) {
+                                sb.append("\"").append(value).append("\"");
+                            } else {
+                                sb.append(value);
+                            }
+                            if (i < fields.length - 1) {
+                                sb.append(",\n\t");
+                            }
+                        } catch (IllegalAccessException e) {
+                            System.err.println("Cannot access field: " + field.getName());
+                        }
+                    }
+                    sb.append("\n}");
+                    return sb.toString();
+
+                case XML:
+                    sb.append("<").append(cls.getSimpleName()).append(">\n");
+                    for (Field field : fields) {
+                        field.setAccessible(true);
+                        try {
+                            sb.append("\t<").append(field.getName()).append(">");
+                            sb.append(field.get(obj));
+                            sb.append("</").append(field.getName()).append(">\n");
+                        } catch (IllegalAccessException e) {
+                            System.err.println("Cannot access field: " + field.getName());
+                        }
+                    }
+                    sb.append("</").append(cls.getSimpleName()).append(">");
+                    return sb.toString();
+
+                default:
+                    return null;
+            }
         }
     }
 }

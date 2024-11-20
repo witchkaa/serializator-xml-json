@@ -1,4 +1,7 @@
-package org.example;
+package org.example.model;
+
+import org.example.Format;
+import org.example.Serialized;
 
 @Serialized(format = Format.JSON)
 public class User {
