@@ -4,6 +4,9 @@ import org.example.model.Dog;
 import org.example.model.Tea;
 import org.example.model.User;
 
+/**
+ * A demonstration class showing the usage of the Serializator class.
+ */
 public class Demo {
     static final int TRIALS = 1000000;
     public static void main(String[] args) {
@@ -34,6 +37,13 @@ public class Demo {
         timeElapsed = System.currentTimeMillis() - start;
         System.out.println("Time for simple serialization: " + timeElapsed + "ms");
     }
+
+    /**
+     * Simple serialization method for User object (no reflection).
+     *
+     * @param user the User object to serialize
+     * @return the serialized JSON string
+     */
     public static String simpleSerialize(User user){
         return "{\n\t\"firstName\":\"" + user.getFirstName()
                 + "\",\n\t\"lastName\":\"" + user.getLastName()

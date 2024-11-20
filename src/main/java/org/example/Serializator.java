@@ -2,7 +2,18 @@ package org.example;
 
 import java.lang.reflect.Field;
 
+/**
+ * A class for serializing Java objects into JSON or XML format using custom annotations and reflection.
+ */
 public class Serializator {
+
+    /**
+     * Serializes the given object into the format specified by the @Serialized annotation.
+     *
+     * @param obj the object to serialize
+     * @return a string representing the serialized object in JSON or XML format,
+     *         or {@code null} if the class is not annotated with @Serialized
+     */
     public String serialize(Object obj) {
         Class<?> cls = obj.getClass();
         Serialized annotation = cls.getAnnotation(Serialized.class);

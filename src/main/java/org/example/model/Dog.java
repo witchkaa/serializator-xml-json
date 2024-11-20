@@ -3,6 +3,10 @@ package org.example.model;
 import org.example.Serialized;
 import org.example.XmlField;
 
+/**
+ * A model class representing a Dog. It is annotated with the @Serialized annotation to specify
+ * that it should be serialized into XML format.
+ */
 @Serialized
 public class Dog {
     @XmlField(name = "name")

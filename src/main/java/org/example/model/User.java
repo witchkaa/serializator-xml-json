@@ -4,6 +4,10 @@ import org.example.Format;
 import org.example.JsonField;
 import org.example.Serialized;
 
+/**
+ * A model class representing a User. It is annotated with the @Serialized annotation to specify
+ * that it should be serialized into JSON format.
+ */
 @Serialized(format = Format.JSON)
 public class User {
     @JsonField(name = "firstName")

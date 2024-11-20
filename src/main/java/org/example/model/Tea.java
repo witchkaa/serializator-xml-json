@@ -4,6 +4,10 @@ import org.example.Format;
 import org.example.Serialized;
 import org.example.XmlField;
 
+/**
+ * A model class representing a Tea. It is annotated with the @Serialized annotation to specify
+ * that it should be serialized into XML format.
+ */
 @Serialized(format = Format.XML)
 public class Tea {
     @XmlField(name = "cup_size")
