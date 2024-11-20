@@ -21,7 +21,12 @@ public class Serializator {
                         Field field = fields[i];
                         field.setAccessible(true);
                         JsonField jsonField = field.getAnnotation(JsonField.class);
-                        String key = jsonField.name().isEmpty() ? field.getName() : jsonField.name();
+                        if (jsonField == null) {
+                            continue;
+                        }
+                        String key = (!jsonField.name().isEmpty())
+                                ? jsonField.name()
+                                : field.getName();
                         try {
                             sb.append("\"").append(key).append("\":");
                             Object value = field.get(obj);
@@ -44,8 +49,13 @@ public class Serializator {
                     sb.append("<").append(cls.getSimpleName()).append(">\n");
                     for (Field field : fields) {
                         field.setAccessible(true);
-                        XmlField jsonField = field.getAnnotation(XmlField.class);
-                        String key = jsonField.name().isEmpty() ? field.getName() : jsonField.name();
+                        XmlField xmlField = field.getAnnotation(XmlField.class);
+                        if (xmlField == null) {
+                            continue;
+                        }
+                        String key = (!xmlField.name().isEmpty())
+                                ? xmlField.name()
+                                : field.getName();
                         try {
                             sb.append("\t<").append(key).append(">");
                             sb.append(field.get(obj));
