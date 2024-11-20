@@ -1,13 +1,18 @@
 package org.example.model;
 
 import org.example.Format;
+import org.example.JsonField;
 import org.example.Serialized;
 
 @Serialized(format = Format.JSON)
 public class User {
+    @JsonField(name = "firstName")
     private String firstName;
+    @JsonField(name = "lastName")
     private String lastName;
+    @JsonField(name="id")
     private int id;
+    @JsonField(name="age")
     private int age;
 
     public User(String lastName, int age, String firstName, int id) {

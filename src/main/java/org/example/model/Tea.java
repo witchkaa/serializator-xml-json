@@ -2,16 +2,20 @@ package org.example.model;
 
 import org.example.Format;
 import org.example.Serialized;
+import org.example.XmlField;
 
 @Serialized(format = Format.XML)
 public class Tea {
-    private String size;
+    @XmlField(name = "cup_size")
+    private String cupSize;
+    @XmlField(name = "type")
     private String type;
+    @XmlField(name = "price")
     private double price;
 
-    public Tea(String type, double price, String size) {
+    public Tea(String type, double price, String cupSize) {
         this.type = type;
         this.price = price;
-        this.size = size;
+        this.cupSize = cupSize;
     }
 }

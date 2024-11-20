@@ -20,8 +20,10 @@ public class Serializator {
                     for (int i = 0; i < fields.length; i++) {
                         Field field = fields[i];
                         field.setAccessible(true);
+                        JsonField jsonField = field.getAnnotation(JsonField.class);
+                        String key = jsonField.name().isEmpty() ? field.getName() : jsonField.name();
                         try {
-                            sb.append("\"").append(field.getName()).append("\":");
+                            sb.append("\"").append(key).append("\":");
                             Object value = field.get(obj);
                             if (value instanceof String) {
                                 sb.append("\"").append(value).append("\"");
@@ -42,10 +44,12 @@ public class Serializator {
                     sb.append("<").append(cls.getSimpleName()).append(">\n");
                     for (Field field : fields) {
                         field.setAccessible(true);
+                        XmlField jsonField = field.getAnnotation(XmlField.class);
+                        String key = jsonField.name().isEmpty() ? field.getName() : jsonField.name();
                         try {
-                            sb.append("\t<").append(field.getName()).append(">");
+                            sb.append("\t<").append(key).append(">");
                             sb.append(field.get(obj));
-                            sb.append("</").append(field.getName()).append(">\n");
+                            sb.append("</").append(key).append(">\n");
                         } catch (IllegalAccessException e) {
                             System.err.println("Cannot access field: " + field.getName());
                         }
